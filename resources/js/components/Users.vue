@@ -60,7 +60,7 @@
 		        </button>
 		      </div>
 
-		      <form @submit.prevent="editmode ? updateuser() : createUser()">
+		      <form @submit.prevent="editmode ? updateUser() : createUser()">
 			      <div class="modal-body">
 
 			        <div class="form-group">
@@ -125,6 +125,7 @@
 				editmode: false,
 				users: {},
 				form: new Form({
+					id: '',
 					name: '',
 					email: '',
 					password: '',
@@ -136,7 +137,23 @@
 		},
 		methods: {
 			updateUser(){
-				console.log('updating');
+				this.$Progress.start();
+				// console.log('updating');
+				this.form.put('api/user/'+ this.form.id)
+				.then(() => {
+					// success
+					$('#addNew').modal('hide');
+					swal(
+						'Updated!',
+						'Information has been updated.',
+						'success'
+					)
+					this.$Progress.finish();
+					Fire.$emit('AfterCreate');
+				})
+				.catch(() => {
+					this.$Progress.fail();
+				});
 			},
 
 			editModal(user){
@@ -185,6 +202,7 @@
 
 			createUser(){
 				this.$Progress.start();
+
 				this.form.post('api/user')
 				.then(() => {
 
