@@ -153,24 +153,36 @@
 				this.form.put('api/profile/')
 				.then(() => {
 
+					this.$Progress.finish();
 				})
 				.catch(() => {
-
+					this.$Progress.fail();
 				});
 			},
 
 			updateProfile(e){
+				this.$Progress.start();
 				// console.log('uploading')
 				let file = e.target.files[0];
 				// console.log(file);
 				let reader = new FileReader();
-				let vm = this;
-				reader.onloadend = (file) => {
-					// console.log('RESULT', reader.result)
-					this.form.photo = reader.result;
+				// let vm = this;
+
+				if(file['size'] < 2111775){
+					reader.onloadend = (file) => {
+						// console.log('RESULT', reader.result)
+						this.form.photo = reader.result;
+					}
+					reader.readAsDataURL(file);
+
+				}else{
+
+					swal({
+						type: 'error',
+						title: 'Oops...',
+						text: 'You are uploading a large file',
+					})
 				}
-				
-				reader.readAsDataURL(file);
 			}
 		},
 
