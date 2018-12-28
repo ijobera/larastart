@@ -74,6 +74,12 @@ class UserController extends Controller
             \Image::make($request->photo)->save(public_path('img/profile/').$name);
 
             $request->merge(['photo' => $name]);
+
+            // Deleting the older Photo when updating
+            $userPhoto = public_path('img/profile/').$currentPhoto;
+            if(file_exists($userPhoto)){
+                @unlink($userPhoto);
+            }
         }
 
         if(!empty($request->password)){
