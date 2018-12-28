@@ -60,8 +60,13 @@ class UserController extends Controller
     {
         $user = auth('api')->user();
 
-        return $request->photo;
-        // return ['message' => "Success"];
+        if($request->photo) {
+
+            $name = time().'.' . explode('/', explode(':', substr($request->photo, 0, strpos
+            ($request->photo, ';')))[1])[1];
+
+            \Image::make($request->photo)->save(public_path('img/profile/').$name);
+        }
     }
 
 
