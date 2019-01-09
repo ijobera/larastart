@@ -48,8 +48,9 @@ Vue.use(VueProgressBar, {
 let routes = [
   { path: '/dashboard', component: require('./components/Dashboard.vue').default },
   { path: '/developer', component: require('./components/Developer.vue').default },
-  { path: '/profile', component: require('./components/Profile.vue').default },
-  { path: '/users', component: require('./components/Users.vue').default }
+  { path: '/users', component: require('./components/Users.vue').default },
+  { path: '/profile', component: require('./components/Profile.vue').default }
+
 ]
 
 const router = new VueRouter({
@@ -91,6 +92,11 @@ Vue.component(
 Vue.component(
   'passport-personal-access-tokens',
   require('./components/passport/PersonalAccessTokens.vue').default
+);
+
+Vue.component(
+  'not-found',
+  require('./components/NotFound.vue').default
 );
 
 
