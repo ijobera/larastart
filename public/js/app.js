@@ -77940,7 +77940,10 @@ var app = new Vue({
   methods: {
     searchit: _.debounce(function () {
       Fire.$emit('searching');
-    }, 600)
+    }, 600),
+    printme: function printme() {
+      window.print();
+    }
   }
 });
 

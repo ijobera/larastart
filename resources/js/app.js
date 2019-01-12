@@ -120,6 +120,10 @@ const app = new Vue({
     methods:{
       searchit:_.debounce(() => {
         Fire.$emit('searching');
-      }, 600)
+      }, 600),
+
+      printme() {
+        window.print();
+      }
     }
 });
